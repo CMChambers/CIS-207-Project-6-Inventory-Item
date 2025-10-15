@@ -1,0 +1,15 @@
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\bin\Debug\net8.0\CIS-207-Project-6-Inventory-Item.exe
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\bin\Debug\net8.0\CIS-207-Project-6-Inventory-Item.deps.json
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\bin\Debug\net8.0\CIS-207-Project-6-Inventory-Item.runtimeconfig.json
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\bin\Debug\net8.0\CIS-207-Project-6-Inventory-Item.dll
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\bin\Debug\net8.0\CIS-207-Project-6-Inventory-Item.pdb
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\obj\Debug\net8.0\CIS-207-Project-6-Inventory-Item.GeneratedMSBuildEditorConfig.editorconfig
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\obj\Debug\net8.0\CIS-207-Project-6-Inventory-Item.AssemblyInfoInputs.cache
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\obj\Debug\net8.0\CIS-207-Project-6-Inventory-Item.AssemblyInfo.cs
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\obj\Debug\net8.0\CIS-207-Project-6-Inventory-Item.csproj.CoreCompileInputs.cache
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\obj\Debug\net8.0\CIS-207-Project-6-Inventory-Item.sourcelink.json
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\obj\Debug\net8.0\CIS-207-Project-6-Inventory-Item.dll
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\obj\Debug\net8.0\refint\CIS-207-Project-6-Inventory-Item.dll
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\obj\Debug\net8.0\CIS-207-Project-6-Inventory-Item.pdb
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\obj\Debug\net8.0\CIS-207-Project-6-Inventory-Item.genruntimeconfig.cache
+Z:\School Work Vault\CIS 207 CSharp Programming\Assignments\Project 6 Encapsulation in CSharp\Program\CIS-207-Project-6-Inventory-Item\obj\Debug\net8.0\ref\CIS-207-Project-6-Inventory-Item.dll
