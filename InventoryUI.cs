@@ -8,15 +8,32 @@ namespace CIS207.Project6InventoryItem
     {
         string[] mainMenu =
         {
-                "List All Items" ,
-                 "Exit"
+            "List All Items",
+            "Select Item by Number",
+            "Exit"
         };
+
+        string[] itemMenu =
+        {
+            "Reduce Stock",
+            "Increase Stock",
+            "Rename Item",
+            "Change Price"
+
+        };
+        string[] currentMenu;
 
         internal void Run(Inventory inventory)
         {
+            SetMenuState();
             PrintHeader();
             PrintMenu();
             GetInput();
+        }
+
+        private void SetMenuState()
+        {
+            currentMenu = mainMenu;
         }
 
         private void GetInput()
@@ -27,10 +44,10 @@ namespace CIS207.Project6InventoryItem
 
         private void PrintMenu()
         {
-            Console.WriteLine(PrintCurrenctMenu(mainMenu));
+            Console.WriteLine(PrintCurrentMenu(currentMenu));
         }
 
-        private static string PrintCurrenctMenu(string[] _currentMenu)
+        private static string PrintCurrentMenu(string[] _currentMenu)
         {
             StringBuilder sb = new StringBuilder();
 
