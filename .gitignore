@@ -1,0 +1,21 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/CIS-207-Project-6-Inventory-Item/CopilotIndices/17.14.1231.31060/CodeChunks.db
+/.vs/CIS-207-Project-6-Inventory-Item/CopilotIndices/17.14.1231.31060/SemanticSymbols.db
+/.vs/CIS-207-Project-6-Inventory-Item/FileContentIndex/14d4e4c8-22a2-406c-8ad5-7baa0adbaefe.vsidx
+/.vs/CIS-207-Project-6-Inventory-Item/FileContentIndex/4b652cb2-66f1-4755-ba8b-4cb4bb0ec33f.vsidx
+/.vs/CIS-207-Project-6-Inventory-Item/FileContentIndex/e17f57af-a675-47db-a0c6-7fbc8416294a.vsidx
+/.vs/CIS-207-Project-6-Inventory-Item/v17/.suo
+/.vs/CIS-207-Project-6-Inventory-Item/v17/DocumentLayout.backup.json
+/.vs/CIS-207-Project-6-Inventory-Item/v17/DocumentLayout.json
+/.vs/CIS-207-Project-6-Inventory-Item/CopilotIndices/17.14.1231.31060/CodeChunks.db-shm
+/.vs/CIS-207-Project-6-Inventory-Item/CopilotIndices/17.14.1231.31060/CodeChunks.db-wal
+/.vs/CIS-207-Project-6-Inventory-Item/CopilotIndices/17.14.1231.31060/SemanticSymbols.db-shm
+/.vs/CIS-207-Project-6-Inventory-Item/CopilotIndices/17.14.1231.31060/SemanticSymbols.db-wal
+/.vs/CIS-207-Project-6-Inventory-Item/FileContentIndex/7c6c4ec8-8836-4cdb-9e12-6da3900654c5.vsidx
+/.vs/CIS-207-Project-6-Inventory-Item/FileContentIndex/b190debf-a4fe-401c-b489-f0b5c3a5ea89.vsidx
+/.vs/CIS-207-Project-6-Inventory-Item/FileContentIndex/59775209-11ca-4e1d-b395-c837609a0c02.vsidx
+*.vsidx
+/obj/Debug/net8.0/CIS-207-Project-6-Inventory-Item.AssemblyInfoInputs.cache
