@@ -7,20 +7,20 @@ namespace CIS207.Project6InventoryItem
     internal class InventoryUI
     {
         bool IsExitInput;
-        private int validatedInput;
+        private int input;
 
-        internal void Run(Inventory inventory)
+        internal void Run(Inventory _inventory)
         {
             PrintHeader();
             while (!IsExitInput)
             {
-                PrintMenu();
+                PrintMainMenu();
                 GetInput();
-                HandleInput();
+                HandleInput(_inventory);
             }
         }
 
-        private void HandleInput()
+        private void HandleInput(Inventory _inventory)
         {
             if (validatedInput.IsError)
             { HandleError(validatedInput); }
@@ -28,17 +28,40 @@ namespace CIS207.Project6InventoryItem
             switch (validatedInput.Value)
             {
                 case 0:
-                    PickItemByNumber();
+                    Exit();
                     break;
                 case 1:
-                    ViewAllItems();
+                    PickItemByNumber(_inventory);
                     break;
                 case 2:
-                    Exit();
+                    ViewAllItems(_inventory);
+                    break;
+                case 3:
+                    AddItem(_inventory);
+                    break;
+                case 4:
+                    RemoveItem(_inventory);
                     break;
                 default:
                     break;
             }
+        }
+
+        private void PickItemByNumber(Inventory _inventory)
+        {
+            Console.WriteLine("Enter Item Number: ");
+            input = InputValidator.AsInt(Console.ReadLine());
+            Console.WriteLine(_inventory.ListItem(input));
+        }
+
+        private void ViewAllItems(Inventory _inventory)
+        {
+            Console.Write(_inventory.ListAllInventory());
+        }
+
+        private void Exit()
+        {
+            IsExitInput = true;
         }
 
         private void GetInput()
@@ -46,20 +69,16 @@ namespace CIS207.Project6InventoryItem
             IsExitInput = false;
 
             Console.Write($"Enter Selection : ");
-            string rawInput = Console.ReadLine() ?? "";
-            validatedInput = InputValidator.AsInt(rawInput);
-        }
-
-        private void PrintMenu()
-        {
-            PrintMainMenu();
+            input = InputValidator.AsInt(Console.ReadLine() ?? "");
         }
 
         private void PrintMainMenu()
         {
-            Console.WriteLine($"1. Pick Item By Number");
-            Console.WriteLine($"2. View All Items");
-            Console.WriteLine($"3. Exit");
+            Console.WriteLine("0. Exit");
+            Console.WriteLine("1. Pick Item By Number");
+            Console.WriteLine("2. View All Items");
+            Console.WriteLine("3. Add Item");
+            Console.WriteLine("4. Remove Item");
         }
 
         private void PrintHeader()
