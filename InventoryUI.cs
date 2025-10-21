@@ -6,60 +6,60 @@ namespace CIS207.Project6InventoryItem
 {
     internal class InventoryUI
     {
-        string[] mainMenu =
-        {
-            "List All Items",
-            "Select Item by Number",
-            "Exit"
-        };
-
-        string[] itemMenu =
-        {
-            "Reduce Stock",
-            "Increase Stock",
-            "Rename Item",
-            "Change Price"
-
-        };
-        string[] currentMenu;
+        bool IsExitInput;
+        private int validatedInput;
 
         internal void Run(Inventory inventory)
         {
-            SetMenuState();
             PrintHeader();
-            PrintMenu();
-            GetInput();
+            while (!IsExitInput)
+            {
+                PrintMenu();
+                GetInput();
+                HandleInput();
+            }
         }
 
-        private void SetMenuState()
+        private void HandleInput()
         {
-            currentMenu = mainMenu;
+            if (validatedInput.IsError)
+            { HandleError(validatedInput); }
+
+            switch (validatedInput.Value)
+            {
+                case 0:
+                    PickItemByNumber();
+                    break;
+                case 1:
+                    ViewAllItems();
+                    break;
+                case 2:
+                    Exit();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void GetInput()
         {
+            IsExitInput = false;
+
             Console.Write($"Enter Selection : ");
-            string result = Console.ReadLine() ?? "";
+            string rawInput = Console.ReadLine() ?? "";
+            validatedInput = InputValidator.AsInt(rawInput);
         }
 
         private void PrintMenu()
         {
-            Console.WriteLine(PrintCurrentMenu(currentMenu));
+            PrintMainMenu();
         }
 
-        private static string PrintCurrentMenu(string[] _currentMenu)
+        private void PrintMainMenu()
         {
-            StringBuilder sb = new StringBuilder();
-
-            for (int i = 0; i < _currentMenu.Length; i++)
-            {
-                string? item = _currentMenu[i];
-                sb.AppendLine($"{i + 1} : {_currentMenu[i]}");
-            }
-
-            string result = sb.ToString();
-
-            return result;
+            Console.WriteLine($"1. Pick Item By Number");
+            Console.WriteLine($"2. View All Items");
+            Console.WriteLine($"3. Exit");
         }
 
         private void PrintHeader()
