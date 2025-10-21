@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CIS-207-Project-6-Inventory-Item")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+486f8b3b3f86768ec87d852492fb5afe9b7d7ad2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08b3fde18179389133e3586cc7985a466561a34a")]
 [assembly: System.Reflection.AssemblyProductAttribute("CIS-207-Project-6-Inventory-Item")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CIS-207-Project-6-Inventory-Item")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
