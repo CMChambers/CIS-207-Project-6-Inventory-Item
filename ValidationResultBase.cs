@@ -5,19 +5,19 @@ namespace CIS207.Project6InventoryItem
 {
     abstract class ValidationResultBase
     {
-        private string errorMessage = string.Empty;
-        private string errorTitle = string.Empty;
+        //private string errorMessage = string.Empty;
+        //private string errorTitle = string.Empty;
         private bool isError;
-        public string ErrorMessage                                              // the error message for an unsuccessful validation
-        {
-            get => errorMessage;
-            set => errorMessage = value;
-        }
-        public string ErrorTitle                                                // the error message box title for unsuccessful validation
-        {
-            get => errorTitle;
-            set => errorTitle = value;
-        }
+        //public string ErrorMessage                                              // the error message for an unsuccessful validation
+        //{
+        //    get => errorMessage;
+        //    set => errorMessage = value;
+        //}
+        //public string ErrorTitle                                                // the error message box title for unsuccessful validation
+        //{
+        //    get => errorTitle;
+        //    set => errorTitle = value;
+        //}
 
         public bool IsError                                                     // flag to show successful validation
         {
