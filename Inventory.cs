@@ -3,7 +3,7 @@ namespace CIS207.Project6InventoryItem
 {
     internal class Inventory
     {
-        Dictionary<int, InventoryItem> inventoryItems = new Dictionary<int, InventoryItem>();
+        public Dictionary<int, InventoryItem> inventoryItems = new Dictionary<int, InventoryItem>();
 
         internal void LoadInventory()
         {
