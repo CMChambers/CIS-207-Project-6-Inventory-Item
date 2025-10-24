@@ -10,6 +10,7 @@ namespace CIS207.Project6InventoryItem
             Inventory inventory = new Inventory();
 
             inventory.LoadInventory();
+
             menu.Run(inventory);
         }
 

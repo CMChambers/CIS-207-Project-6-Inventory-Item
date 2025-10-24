@@ -21,6 +21,7 @@ namespace CIS207.Project6InventoryItem
             IsError = false;
             Value = _value;
         }
+
     }
 
 }

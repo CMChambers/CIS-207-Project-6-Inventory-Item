@@ -4,9 +4,9 @@
     {
         private string name;
         private int count;
-        private double price;
+        private decimal price;
 
-        public InventoryItem(string _name, int _count, double _price)
+        public InventoryItem(string _name, int _count, decimal _price)
         {
             Name = _name ;
             Count = _count;
@@ -26,7 +26,7 @@
 
         }
 
-        public double Price
+        public decimal Price
         {
             get { return price; }
             private set { price = value; }

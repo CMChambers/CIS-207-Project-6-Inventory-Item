@@ -6,8 +6,8 @@ namespace CIS207.Project6InventoryItem
 {
     internal class InventoryUI
     {
-        private bool IsExitInput;
-        private string MainMenu = "" +
+        private bool _isExitInput;
+        private string _mainMenu = "" +
             " 0. Exit \n" +
             " 1. View All Items \n" +
             " 2. View Item \n" +
@@ -16,62 +16,64 @@ namespace CIS207.Project6InventoryItem
             " 5. Increase Item Stock \n" +
             " 6. Decrease Item Stock \n" +
             " 7. Edit Item \n";
-        
-        public void Run(Inventory _inventory)
+
+        public void Run(Inventory inventory)
         {
             PrintHeader();
-            IsExitInput = false;
+            _isExitInput = false;
 
-            while (!IsExitInput)
+            while (!_isExitInput)
             {
-                PrintMenu(MainMenu);
+                PrintMenu(_mainMenu);
                 int inputInt = GetInputInt("Enter Selection: ");
-                HandleMainMenuInput(_inventory, inputInt);
+                HandleMainMenuInput(inventory, inputInt);
             }
         }
-        private void PrintMenu(string _menu)
-        { Console.Write(_menu); }
-        private void HandleMainMenuInput(Inventory _inventory, int _inputInt)
+        private void PrintMenu(string menu)
         {
-            switch (_inputInt)
+            Console.Write(menu);
+        }
+        private void HandleMainMenuInput(Inventory inventory, int choice)
+        {
+            switch (choice)
             {
                 case 0:
                     Exit();
                     break;
                 case 1:
-                    ViewAllItems(_inventory);
+                    ViewAllItems(inventory);
                     break;
                 case 2:
-                    ViewItem(_inventory);
+                    ViewItem(inventory);
                     break;
                 case 3:
-                    AddItem(_inventory);
+                    AddItem(inventory);
                     break;
                 case 4:
-                    RemoveItem(_inventory);
+                    RemoveItem(inventory);
                     break;
                 case 5:
-                    IncreaseItemStock(_inventory);
+                    IncreaseItemStock(inventory);
                     break;
                 case 6:
-                    DecreaseItemStock(_inventory);
+                    DecreaseItemStock(inventory);
                     break;
                 case 7:
-                    EditItem(_inventory);
+                    EditItem(inventory);
                     break;
                 default:
                     break;
             }
         }
         private void Exit()
-        { IsExitInput = true; }
-        private void EditItem(Inventory _inventory)
+        { _isExitInput = true; }
+        private void EditItem(Inventory inventory)
         {
             Console.WriteLine("==== Edit Item ====");
             int itemNumber = GetInputInt("Enter item number to edit: ");
 
         }
-        private void DecreaseItemStock(Inventory _inventory)
+        private void DecreaseItemStock(Inventory inventory)
         {
             Console.WriteLine("==== Decrease Item Stock ====");
             int itemNumber = GetInputInt("Enter item number to decrease: ");
@@ -79,7 +81,7 @@ namespace CIS207.Project6InventoryItem
             //_inventory.DecreaseStock(itemNumber, itemDecrement);
 
         }
-        private void IncreaseItemStock(Inventory _inventory)
+        private void IncreaseItemStock(Inventory inventory)
         {
             Console.WriteLine("==== Increase Item Stock ====");
             int itemNumber = GetInputInt("Enter item number to remove: ");
@@ -87,34 +89,62 @@ namespace CIS207.Project6InventoryItem
             //_inventory.IncreaseStock(itemNumber, itemIncrement);
 
         }
-        private void RemoveItem(Inventory _inventory)
+        private void RemoveItem(Inventory inventory)
         {
             Console.WriteLine("==== Remove Item ====");
             int itemNumber = GetInputInt("Enter item number to remove: ");
             //_inventory.RemoveItem(itemNumber);
 
         }
-        private void AddItem(Inventory _inventory)
+        private void AddItem(Inventory inventory)
         {
             Console.WriteLine("==== Add Item ====");
-            int inputNumber = GetInputInt("Enter item number to add: ");
+            //bool validInput = false;
+            int inputNumber = 0;
+            while (true)
+            {
+                inputNumber = GetInputInt("Enter item number to add: ");
+                if (!inventory.ContainsItem(inputNumber))
+                {
+                    //validInput = true;
+                    break;
+                }
+                else
+                { HandleError("Number not available, try again: "); }
+            }
             string inputName = GetInputString("Enter item name: ");
             decimal inputPrice = GetInputDecimal("Enter item price: ");
             int inputStock = GetInputInt("Enter item stock: ");
             //_inventory.AddItem(inputNumber, inputName, inputPrice, inputStock);
+
+            inventory.AddItem(inputNumber, new InventoryItem(inputName, inputStock, inputPrice));
         }
-        private void HandleError(string _errorMessage)
-        { Console.WriteLine(_errorMessage); }
-        private void ViewItem(Inventory _inventory)
+        private void HandleError(string errorMessage)
+        {
+            Console.WriteLine(errorMessage);
+        }
+        private void ViewItem(Inventory inventory)
         {
             Console.WriteLine("==== View Item ====");
-            int itemNumber = GetInputInt("Enter item number to view: ");
-
-            // check the dictionary for that item number, return error if not found
-
-            PrintViewHeader();
-            //PrintViewItem(_inventory.inventoryItems(itemNumber));
-
+            bool validInput = false;
+            while (!validInput)
+            {
+                int itemNumber = GetInputInt("Enter item number to view, 0 to return: ");
+                if (itemNumber == 0)
+                {
+                    return;
+                }
+                else if (inventory.ContainsItem(itemNumber))
+                {
+                    PrintViewHeader();
+                    PrintViewItem(inventory.GetItem(itemNumber));
+                    validInput = true;
+                }
+                else
+                {
+                    HandleError("Not Found, Try Again");
+                }
+            }
         }
 
         private void PrintViewHeader()
@@ -123,63 +153,63 @@ namespace CIS207.Project6InventoryItem
             //format with tabs or something
         }
 
-        private void ViewAllItems(Inventory _inventory)
+        private void ViewAllItems(Inventory inventory)
         {
             Console.WriteLine("==== View All Item ====");
 
             PrintViewHeader();
-            PrintViewItem(new InventoryItem("test name", 12, 10.00));
+            //PrintViewItem();
             //for (int i = 0; i < _inventory.inventoryItems.Count; i++)
             //{
             //    PrintViewItem(_inventory.inventoryItems[i]);
             //}
         }
 
-        private void PrintViewItem(InventoryItem _item)
+        private void PrintViewItem((int number, InventoryItem listing) item)
         {
-            Console.WriteLine($"item number, {_item.Name}, {_item.Price}, {_item.Count}");
+            Console.WriteLine($"{item.number}, {item.listing.Name}, {item.listing.Price}, {item.listing.Count}");
         }
 
-        int GetInputInt(string _prompt)
+        int GetInputInt(string prompt)
         {
             bool validInput = false;
             ValidationResultInt input = new();
             while (!validInput)
             {
-                Console.WriteLine(_prompt);
+                Console.Write(prompt);
                 input = InputValidator.AsInt(Console.ReadLine() ?? "");
                 if (input.IsError)
-                { HandleError("Invalid, try again."); }
+                { HandleError("Invalid, try again: "); }
                 else
                 { validInput = true; }
             }
             return input.Value;
         }
-        decimal GetInputDecimal(string _prompt)
+        decimal GetInputDecimal(string prompt)
         {
             bool validInput = false;
             ValidationResultDecimal input = new();
             while (!validInput)
             {
-                Console.WriteLine(_prompt);
+                Console.Write(prompt);
                 input = InputValidator.AsDecimal(Console.ReadLine() ?? "");
                 if (input.IsError)
-                { HandleError("Invalid, try again."); }
+                { HandleError("Invalid, try again: "); }
                 else
                 { validInput = true; }
             }
             return input.Value;
         }
-        string GetInputString(string _prompt)
+        string GetInputString(string prompt)
         {
             bool validInput = false;
             ValidationResultString input = new();
             while (!validInput)
             {
-                Console.WriteLine(_prompt);
+                Console.Write(prompt);
                 input = InputValidator.AsString(Console.ReadLine() ?? "");
                 if (input.IsError)
-                { HandleError("Invalid, try again."); }
+                { HandleError("Invalid, try again: "); }
                 else
                 { validInput = true; }
             }
