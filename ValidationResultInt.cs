@@ -12,9 +12,10 @@ namespace CIS207.Project6InventoryItem
             set => this.value = value;
         }
 
-        public ValidationResultInt()    // constructor for an error result
+        public ValidationResultInt(bool isError, string errorMessage)    // constructor for an error result
         {
-            this.IsError = true;
+            IsError = isError;
+            ErrorMessage = errorMessage;
         }
 
         public ValidationResultInt(int _value)                                  // constructor for a successful result

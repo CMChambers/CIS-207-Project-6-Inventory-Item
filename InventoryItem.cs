@@ -1,40 +1,41 @@
-﻿namespace CIS207.Project6InventoryItem
+﻿
+namespace CIS207.Project6InventoryItem
 {
     internal class InventoryItem
     {
-        private string name;
-        private int count;
-        private decimal price;
+        private string _name;
+        private int _stock;
+        private decimal _price;
 
-        public InventoryItem(string _name, int _count, decimal _price)
+        public InventoryItem(string name, decimal price, int stock)
         {
-            Name = _name ;
-            Count = _count;
-            Price = _price;
+            Name = name ;
+            Price = price;
+            Stock = stock;
         }
 
         public string Name
         {
-            get { return name; }
-            private set { name = value; }
+            get { return _name; }
+            private set { _name = value; }
         }
 
-        public int Count
+        public int Stock
         {
-            get { return count; }
-            private set { count = value; }
+            get { return _stock; }
+            private set { _stock = value; }
 
         }
 
         public decimal Price
         {
-            get { return price; }
-            private set { price = value; }
+            get { return _price; }
+            private set { _price = value; }
         }
 
         public void Rename(string _newName)
         {
-            name = _newName;
+            _name = _newName;
         }
     }
 }
