@@ -20,7 +20,7 @@ namespace CIS207.Project6InventoryItem
             while (!_isExitInput)
             {
                 PrintMenu(_mainMenu);
-                int inputInt = GetInputAsInt(_mainMenuPrompt);
+                int inputInt = GetInput.AsInt(_mainMenuPrompt);
                 HandleMainMenuInput(inventory, inputInt);
             }
         }
@@ -85,7 +85,7 @@ namespace CIS207.Project6InventoryItem
 
             while (true)
             {
-                int itemNumber = GetInputAsInt(viewItemPrompt);
+                int itemNumber = GetInput.AsInt(viewItemPrompt);
                 if (itemNumber == 0)
                 {
                     PrintFooter();
@@ -110,16 +110,16 @@ namespace CIS207.Project6InventoryItem
             int inputNumber = 0;
             while (true)
             {
-                inputNumber = GetInputAsInt(addItemPrompt);
+                inputNumber = GetInput.AsInt(addItemPrompt);
                 if (inventory.ItemNumberAvailable(inputNumber))
                 { break; }
                 else
                 { HandleError(ErrorItemNumberNotAvailable); }
             }
 
-            string inputName = GetInputAsString(addItemPromptForName);
-            decimal inputPrice = GetInputAsDecimal(addItemPromptForPrice);
-            int inputStock = GetInputAsInt(addItemPromptForStock);
+            string inputName = GetInput.AsString(addItemPromptForName);
+            decimal inputPrice = GetInput.AsDecimal(addItemPromptForPrice);
+            int inputStock = GetInput.AsInt(addItemPromptForStock);
 
             inventory.AddItem(inputNumber, inputName, inputPrice, inputStock);
         }
@@ -130,7 +130,7 @@ namespace CIS207.Project6InventoryItem
             //int itemNumber = GetInputAsInt(removeItemPrompt);
             while (true)
             {
-                int inputNumber = GetInputAsInt(removeItemPrompt);
+                int inputNumber = GetInput.AsInt(removeItemPrompt);
                 if (inputNumber == 0)
                 {
                     return;
@@ -153,10 +153,10 @@ namespace CIS207.Project6InventoryItem
             PrintHeader(increaseItemStockHeader);
             while (true)
             {
-                int itemNumber = GetInputAsInt(increaseItemStockPrompt);
+                int itemNumber = GetInput.AsInt(increaseItemStockPrompt);
                 if (inventory.ContainsItem(itemNumber))
                 {
-                    int itemIncrement = GetInputAsInt(increaseItemStockPrompt2);
+                    int itemIncrement = GetInput.AsInt(increaseItemStockPrompt2);
                     if (itemIncrement == 0)
                     {
                         return;
@@ -178,10 +178,10 @@ namespace CIS207.Project6InventoryItem
             PrintHeader(decreaseItemStockHeader);
             while (true)
             {
-                int itemNumber = GetInputAsInt(decreaseItemStockPrompt);
+                int itemNumber = GetInput.AsInt(decreaseItemStockPrompt);
                 if (inventory.ContainsItem(itemNumber))
                 {
-                    int itemDecrement = GetInputAsInt(decreaseItemStockPrompt2);
+                    int itemDecrement = GetInput.AsInt(decreaseItemStockPrompt2);
                     if (itemDecrement == 0)
                     {
                         return;
@@ -210,7 +210,7 @@ namespace CIS207.Project6InventoryItem
         private static void EditItem(Inventory inventory)
         {
             Console.WriteLine("==== Edit Item ====");
-            int itemNumber = GetInputAsInt("Enter item number to edit: ");
+            int itemNumber = GetInput.AsInt("Enter item number to edit: ");
 
         }
 
@@ -235,49 +235,49 @@ namespace CIS207.Project6InventoryItem
         private static void PrintFooter()
         { Console.WriteLine($"============  ============"); }
 
-        static int GetInputAsInt(string prompt)
-        {
-            while (true)
-            {
-                Console.Write(prompt);
-                ValidationResultInt input = InputValidator.AsInt(Console.ReadLine() ?? "");
+        //static int GetInputAsInt(string prompt)
+        //{
+        //    while (true)
+        //    {
+        //        Console.Write(prompt);
+        //        ValidationResultInt input = InputValidator.AsInt(Console.ReadLine() ?? "");
 
-                if (!input.IsError)
-                { return input.Value; }
+        //        if (!input.IsError)
+        //        { return input.Value; }
 
-                HandleError("Invalid, try again: ");
-            }
-        }
-        static decimal GetInputAsDecimal(string prompt)
-        {
-            bool validInput = false;
-            ValidationResultDecimal input = new();
-            while (!validInput)
-            {
-                Console.Write(prompt);
-                input = InputValidator.AsDecimal(Console.ReadLine() ?? "");
-                if (input.IsError)
-                { HandleError("Invalid, try again: "); }
-                else
-                { validInput = true; }
-            }
-            return input.Value;
-        }
-        static string GetInputAsString(string prompt)
-        {
-            bool validInput = false;
-            ValidationResultString input = new();
-            while (!validInput)
-            {
-                Console.Write(prompt);
-                input = InputValidator.AsString(Console.ReadLine() ?? "");
-                if (input.IsError)
-                { HandleError("Invalid, try again: "); }
-                else
-                { validInput = true; }
-            }
-            return input.Value;
-        }
+        //        HandleError("Invalid, try again: ");
+        //    }
+        //}
+        //static decimal GetInputAsDecimal(string prompt)
+        //{
+        //    bool validInput = false;
+        //    ValidationResultDecimal input = new();
+        //    while (!validInput)
+        //    {
+        //        Console.Write(prompt);
+        //        input = InputValidator.AsDecimal(Console.ReadLine() ?? "");
+        //        if (input.IsError)
+        //        { HandleError("Invalid, try again: "); }
+        //        else
+        //        { validInput = true; }
+        //    }
+        //    return input.Value;
+        //}
+        //static string GetInputAsString(string prompt)
+        //{
+        //    bool validInput = false;
+        //    ValidationResultString input = new();
+        //    while (!validInput)
+        //    {
+        //        Console.Write(prompt);
+        //        input = InputValidator.AsString(Console.ReadLine() ?? "");
+        //        if (input.IsError)
+        //        { HandleError("Invalid, try again: "); }
+        //        else
+        //        { validInput = true; }
+        //    }
+        //    return input.Value;
+        //}
 
         #region fields
 
