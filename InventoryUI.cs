@@ -2,37 +2,20 @@
 
 using CIS207.Project6InventoryItem;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Metrics;
 //using System.Text;
 
 namespace CIS207.Project6InventoryItem
 {
     internal class InventoryUI
     {
-        private bool _isExitInput;
-        private const string _mainMenuHeader = "The Backrooms";
-        private const string _mainMenu = "" +
-            " 0. Exit \n" +
-            " 1. View All Items \n" +
-            " 2. View Item \n" +
-            " 3. Add Item \n" +
-            " 4. Remove Item \n" +
-            " 5. Increase Item Stock \n" +
-            " 6. Decrease Item Stock \n" +
-            " 7. Edit Item \n";
-        private const string _mainMenuPrompt = "Enter Selection: ";
-        private const string _viewHeaderNumber = "Number";
-        private const string _viewHeaderName = "Name";
-        private const string _viewHeaderPrice = "Price";
-        private const string _viewHeaderStock = "Stock";
-        private const string viewItemHeader = "View Item";
-        private const string viewItemPrompt = "Enter item number to view, 0 to return: ";
-        private const string viewAllItemsHeader = "View All Items";
-        private const string ErrorNotFound = "Not Found, Try Again";
+        // fields at the bottom
+
 
         public void Run(Inventory inventory)
         {
-            PrintHeader(_mainMenuHeader);
             _isExitInput = false;
+            PrintHeader(_mainMenuHeader);
 
             while (!_isExitInput)
             {
@@ -75,89 +58,155 @@ namespace CIS207.Project6InventoryItem
             }
         }
 
+
         private void Exit()
         { _isExitInput = true; }
+
+        private static void ViewAllItems(Inventory inventory)
+        {
+            PrintHeader(viewAllItemsHeader);
+
+            List<InventoryItem> inventoryCopy = inventory.GetAllItems();
+            if (inventoryCopy.Count > 0)                                        // make error return method here
+            {
+                PrintViewHeader();
+                foreach (InventoryItem item in inventoryCopy)
+                {
+                    PrintViewItem(item);
+                }
+                PrintFooter();
+                return;
+            }
+            HandleError(ErrorInventoryEmpty);
+        }
         private static void ViewItem(Inventory inventory)
         {
             PrintHeader(viewItemHeader);
+
             while (true)
             {
                 int itemNumber = GetInputAsInt(viewItemPrompt);
                 if (itemNumber == 0)
                 {
+                    PrintFooter();
                     return;
                 }
                 else if (inventory.ContainsItem(itemNumber))
                 {
                     PrintViewHeader();
                     PrintViewItem(inventory.GetItem(itemNumber));
-                    break;
                 }
                 else
                 {
-                    HandleError(ErrorNotFound);
+                    HandleError(ErrorItemNotFound);
                 }
             }
-        }
 
-
-        private static void ViewAllItems(Inventory inventory)
-        {
-            PrintHeader(viewAllItemsHeader);
-            PrintViewHeader();
-
-            var inventoryCopy = inventory.GetAllItems();
-            foreach (var item in inventoryCopy)
-            {
-                PrintViewItem(item);
-            }
         }
         private static void AddItem(Inventory inventory)
         {
-            Console.WriteLine("==== Add Item ====");
-            //bool validInput = false;
+            PrintHeader(addItemHeader);
+
             int inputNumber = 0;
             while (true)
             {
-                inputNumber = GetInputAsInt("Enter item number to add: ");
-                if (!inventory.ContainsItem(inputNumber))
-                {
-                    //validInput = true;
-                    break;
-                }
+                inputNumber = GetInputAsInt(addItemPrompt);
+                if (inventory.ItemNumberAvailable(inputNumber))
+                { break; }
                 else
-                { HandleError("Number not available, try again: "); }
+                { HandleError(ErrorItemNumberNotAvailable); }
             }
-            //string inputName = GetInput.AsString("Enter item name: ");
-            //decimal inputPrice = GetInput.AsDecimal("Enter item price: ");
-            int inputStock = GetInputAsInt("Enter item stock: ");
-            //_inventory.AddItem(inputNumber, inputName, inputPrice, inputStock);
 
-            //inventory.AddItem(inputNumber, new InventoryItem(inputName, inputStock, inputPrice));
+            string inputName = GetInputAsString(addItemPromptForName);
+            decimal inputPrice = GetInputAsDecimal(addItemPromptForPrice);
+            int inputStock = GetInputAsInt(addItemPromptForStock);
+
+            inventory.AddItem(inputNumber, inputName, inputPrice, inputStock);
         }
         private static void RemoveItem(Inventory inventory)
         {
-            Console.WriteLine("==== Remove Item ====");
-            int itemNumber = GetInputAsInt("Enter item number to remove: ");
-            //_inventory.RemoveItem(itemNumber);
+            PrintHeader(removeItemHeader);
+
+            //int itemNumber = GetInputAsInt(removeItemPrompt);
+            while (true)
+            {
+                int inputNumber = GetInputAsInt(removeItemPrompt);
+                if (inputNumber == 0)
+                {
+                    return;
+                }
+                else if (inventory.ContainsItem(inputNumber))
+                {
+                    inventory.RemoveItem(inputNumber);
+                    PrintFooter();
+                    break;
+                }
+                else
+                {
+                    HandleError(ErrorItemNotFound);
+                }
+            }
 
         }
         private static void IncreaseItemStock(Inventory inventory)
         {
-            Console.WriteLine("==== Increase Item Stock ====");
-            int itemNumber = GetInputAsInt("Enter item number to remove: ");
-            int itemIncrement = GetInputAsInt("Enter amount to increase by: ");
-            //_inventory.IncreaseStock(itemNumber, itemIncrement);
-
+            PrintHeader(increaseItemStockHeader);
+            while (true)
+            {
+                int itemNumber = GetInputAsInt(increaseItemStockPrompt);
+                if (inventory.ContainsItem(itemNumber))
+                {
+                    int itemIncrement = GetInputAsInt(increaseItemStockPrompt2);
+                    if (itemIncrement == 0)
+                    {
+                        return;
+                    }
+                    else if (itemIncrement > 0)
+                    {
+                        inventory.IncreaseStock(itemNumber, itemIncrement);
+                        return;
+                    }
+                    else
+                    {
+                        HandleError(ErrorItemNotFound);
+                    }
+                }
+            }
         }
         private static void DecreaseItemStock(Inventory inventory)
         {
-            Console.WriteLine("==== Decrease Item Stock ====");
-            int itemNumber = GetInputAsInt("Enter item number to decrease: ");
-            int itemDecrement = GetInputAsInt("Enter amount to decrease by: ");
-            //_inventory.DecreaseStock(itemNumber, itemDecrement);
-
+            PrintHeader(decreaseItemStockHeader);
+            while (true)
+            {
+                int itemNumber = GetInputAsInt(decreaseItemStockPrompt);
+                if (inventory.ContainsItem(itemNumber))
+                {
+                    int itemDecrement = GetInputAsInt(decreaseItemStockPrompt2);
+                    if (itemDecrement == 0)
+                    {
+                        return;
+                    }
+                    else if (itemDecrement > 0)
+                    {
+                        inventory.DecreaseStock(itemNumber, itemDecrement);
+                        return;
+                    }
+                    else
+                    {
+                        HandleError(ErrorItemNotFound);
+                    }
+                }
+            }
         }
+
+        //private static void DecreaseItemStock(Inventory inventory)
+        //{
+        //    Console.WriteLine("==== Decrease Item Stock ====");
+        //    int itemNumber = GetInputAsInt("Enter item number to decrease: ");
+        //    int itemDecrement = GetInputAsInt("Enter amount to decrease by: ");
+        //    //_inventory.DecreaseStock(itemNumber, itemDecrement);
+
+        //}
         private static void EditItem(Inventory inventory)
         {
             Console.WriteLine("==== Edit Item ====");
@@ -175,15 +224,16 @@ namespace CIS207.Project6InventoryItem
             Console.WriteLine($"== {_viewHeaderNumber} == {_viewHeaderName} == {_viewHeaderPrice} == {_viewHeaderStock} ==");
             //format with tabs or something
         }
-        private static void PrintViewItem((int number, InventoryItem listing) item)
-        { Console.WriteLine($"{item.number}, {item.listing.Name}, {item.listing.Price}, {item.listing.Stock}"); }
+        private static void PrintViewItem(InventoryItem item)
+        { Console.WriteLine($"{item.Number}, {item.Name}, {item.Price}, {item.Stock}"); }
         private static void PrintHeader(string header)
         {
-            //Console.WriteLine($"======================================");
+            Console.WriteLine($"======================================");
             Console.WriteLine($"============ {header} ============");
-            //Console.WriteLine($"======================================");
+            Console.WriteLine($"======================================");
         }
-
+        private static void PrintFooter()
+        { Console.WriteLine($"============  ============"); }
 
         static int GetInputAsInt(string prompt)
         {
@@ -228,5 +278,56 @@ namespace CIS207.Project6InventoryItem
             }
             return input.Value;
         }
+
+        #region fields
+
+        private bool _isExitInput;
+        private const string toReturn = ", 0 to return: ";
+        private const string _mainMenuHeader = "The Backrooms";
+        private const string _mainMenu = "" +
+          " 0. Exit \n" +
+          " 1. View All Items \n" +
+          " 2. View Item \n" +
+          " 3. Add Item \n" +
+          " 4. Remove Item \n" +
+          " 5. Increase Item Stock \n" +
+          " 6. Decrease Item Stock \n" +
+          " 7. Edit Item \n";
+        private const string _mainMenuPrompt = "Enter Selection: ";
+
+        private const string _viewHeaderNumber = "Number";
+        private const string _viewHeaderName = "Name";
+        private const string _viewHeaderStock = "Stock";
+        private const string _viewHeaderPrice = "Price";
+
+        private const string viewItemHeader = "View Item";
+        private const string viewItemPrompt = "Enter item number to view: ";
+        private const string viewAllItemsHeader = "View All Items";
+
+        private const string addItemHeader = "Add Item";
+        private const string addItemPrompt = "Enter item number to add: ";
+        private const string addItemPromptForName = "Enter item name: ";
+        private const string addItemPromptForPrice = "Enter item price: ";
+        private const string addItemPromptForStock = "Enter item stock: ";
+
+        private const string removeItemHeader = "Remove Item";
+        private const string removeItemPrompt = "Enter item number to remove: ";
+
+        private const string increaseItemStockHeader = "Increase Stock";
+        private const string increaseItemStockPrompt = "Enter item number to increase stock: ";
+        private const string increaseItemStockPrompt2 = "Enter amount to increase by: ";
+
+        private const string decreaseItemStockHeader = "Decrease Stock";
+        private const string decreaseItemStockPrompt = "Enter item number to decrease stock: ";
+        private const string decreaseItemStockPrompt2 = "Enter amount to decrease by: ";
+
+        private const string editItemHeader = "Edit Item";
+        private const string editItemPrompt = "Enter item number to edit: ";
+
+        private const string ErrorItemNotFound = "Not Found, Try Again";
+        private const string ErrorItemNumberNotAvailable = "Number not available, try again: ";
+        private const string ErrorInventoryEmpty = "Error Inventory Empty";
+
+        #endregion
     }
 }

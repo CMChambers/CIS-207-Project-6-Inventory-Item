@@ -3,15 +3,30 @@ namespace CIS207.Project6InventoryItem
 {
     internal class InventoryItem
     {
+        private int _number;
         private string _name;
         private int _stock;
         private decimal _price;
 
-        public InventoryItem(string name, decimal price, int stock)
+        public InventoryItem()
         {
-            Name = name ;
+            Number = 0;
+            Name = String.Empty;
+            Price = 0;
+            Stock = 0;
+        }
+        public InventoryItem(int number, string name, decimal price, int stock)
+        {
+            Number = number;
+            Name = name;
             Price = price;
             Stock = stock;
+        }
+
+        public int Number
+        {
+            get { return _number; }
+            set { _number = value; }
         }
 
         public string Name
@@ -20,22 +35,20 @@ namespace CIS207.Project6InventoryItem
             private set { _name = value; }
         }
 
-        public int Stock
-        {
-            get { return _stock; }
-            private set { _stock = value; }
-
-        }
-
         public decimal Price
         {
             get { return _price; }
-            private set { _price = value; }
+            private set
+            {
+                //do check for cents
+                _price = value;
+            }
         }
 
-        public void Rename(string _newName)
+        public int Stock
         {
-            _name = _newName;
+            get { return _stock; }
+            set { _stock = value; }
         }
     }
 }
