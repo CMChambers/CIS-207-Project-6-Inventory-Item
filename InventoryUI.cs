@@ -85,20 +85,24 @@ namespace CIS207.Project6InventoryItem
 
             while (true)
             {
-                int itemNumber = GetInput.AsInt(viewItemPrompt);
-                if (itemNumber == 0)
+                try
                 {
-                    SetOutput.PrintFooter();
-                    return;
-                }
-                else if (inventory.ContainsItem(itemNumber))
-                {
+                    int itemNumber = GetInput.AsInt(viewItemPrompt);
+                    if (itemNumber == 0)
+                    {
+                        SetOutput.PrintFooter();
+                        return;
+                    }
+
+                    InventoryItem item = inventory.GetItem(itemNumber);
+
                     SetOutput.PrintViewHeader(_viewHeaderNumber, _viewHeaderName, _viewHeaderPrice, _viewHeaderStock);
-                    SetOutput.PrintViewItem(inventory.GetItem(itemNumber));
+                    SetOutput.PrintViewItem(item);
+
                 }
-                else
+                catch (Exception ex)
                 {
-                    SetOutput.HandleError(ErrorItemNotFound);
+                    SetOutput.HandleError(ex.Message);
                 }
             }
 
@@ -107,21 +111,20 @@ namespace CIS207.Project6InventoryItem
         {
             SetOutput.PrintHeader(addItemHeader);
 
-            int inputNumber = 0;
+            //int inputNumber = 0;
             while (true)
             {
-                inputNumber = GetInput.AsInt(addItemPrompt);
-                if (inventory.ItemNumberAvailable(inputNumber))
-                { break; }
-                else
-                { SetOutput.HandleError(ErrorItemNumberNotAvailable); }
+                try
+                {
+                    int inputNumber = GetInput.AsInt(addItemPrompt);
+                    string inputName = GetInput.AsString(addItemPromptForName);
+                    decimal inputPrice = GetInput.AsDecimal(addItemPromptForPrice);
+                    int inputStock = GetInput.AsInt(addItemPromptForStock);
+
+                    inventory.AddItem(inputNumber, inputName, inputPrice, inputStock);
+                }
+                catch { }
             }
-
-            string inputName = GetInput.AsString(addItemPromptForName);
-            decimal inputPrice = GetInput.AsDecimal(addItemPromptForPrice);
-            int inputStock = GetInput.AsInt(addItemPromptForStock);
-
-            inventory.AddItem(inputNumber, inputName, inputPrice, inputStock);
         }
         private static void RemoveItem(Inventory inventory)
         {
