@@ -15,11 +15,11 @@ namespace CIS207.Project6InventoryItem
         public void Run(Inventory inventory)
         {
             _isExitInput = false;
-            PrintHeader(_mainMenuHeader);
+            SetOutput.PrintHeader(_mainMenuHeader);
 
             while (!_isExitInput)
             {
-                PrintMenu(_mainMenu);
+                SetOutput.PrintMenu(_mainMenu);
                 int inputInt = GetInput.AsInt(_mainMenuPrompt);
                 HandleMainMenuInput(inventory, inputInt);
             }
@@ -64,48 +64,48 @@ namespace CIS207.Project6InventoryItem
 
         private static void ViewAllItems(Inventory inventory)
         {
-            PrintHeader(viewAllItemsHeader);
+            SetOutput.PrintHeader(viewAllItemsHeader);
 
             List<InventoryItem> inventoryCopy = inventory.GetAllItems();
             if (inventoryCopy.Count > 0)                                        // make error return method here
             {
-                PrintViewHeader();
+                SetOutput.PrintViewHeader(_viewHeaderNumber, _viewHeaderName, _viewHeaderPrice, _viewHeaderStock);
                 foreach (InventoryItem item in inventoryCopy)
                 {
-                    PrintViewItem(item);
+                    SetOutput.PrintViewItem(item);
                 }
-                PrintFooter();
+                SetOutput.PrintFooter();
                 return;
             }
-            HandleError(ErrorInventoryEmpty);
+            SetOutput.HandleError(ErrorInventoryEmpty);
         }
         private static void ViewItem(Inventory inventory)
         {
-            PrintHeader(viewItemHeader);
+            SetOutput.PrintHeader(viewItemHeader);
 
             while (true)
             {
                 int itemNumber = GetInput.AsInt(viewItemPrompt);
                 if (itemNumber == 0)
                 {
-                    PrintFooter();
+                    SetOutput.PrintFooter();
                     return;
                 }
                 else if (inventory.ContainsItem(itemNumber))
                 {
-                    PrintViewHeader();
-                    PrintViewItem(inventory.GetItem(itemNumber));
+                    SetOutput.PrintViewHeader(_viewHeaderNumber, _viewHeaderName, _viewHeaderPrice, _viewHeaderStock);
+                    SetOutput.PrintViewItem(inventory.GetItem(itemNumber));
                 }
                 else
                 {
-                    HandleError(ErrorItemNotFound);
+                    SetOutput.HandleError(ErrorItemNotFound);
                 }
             }
 
         }
         private static void AddItem(Inventory inventory)
         {
-            PrintHeader(addItemHeader);
+            SetOutput.PrintHeader(addItemHeader);
 
             int inputNumber = 0;
             while (true)
@@ -114,7 +114,7 @@ namespace CIS207.Project6InventoryItem
                 if (inventory.ItemNumberAvailable(inputNumber))
                 { break; }
                 else
-                { HandleError(ErrorItemNumberNotAvailable); }
+                { SetOutput.HandleError(ErrorItemNumberNotAvailable); }
             }
 
             string inputName = GetInput.AsString(addItemPromptForName);
@@ -125,7 +125,7 @@ namespace CIS207.Project6InventoryItem
         }
         private static void RemoveItem(Inventory inventory)
         {
-            PrintHeader(removeItemHeader);
+            SetOutput.PrintHeader(removeItemHeader);
 
             //int itemNumber = GetInputAsInt(removeItemPrompt);
             while (true)
@@ -138,19 +138,19 @@ namespace CIS207.Project6InventoryItem
                 else if (inventory.ContainsItem(inputNumber))
                 {
                     inventory.RemoveItem(inputNumber);
-                    PrintFooter();
+                    SetOutput.PrintFooter();
                     break;
                 }
                 else
                 {
-                    HandleError(ErrorItemNotFound);
+                    SetOutput.HandleError(ErrorItemNotFound);
                 }
             }
 
         }
         private static void IncreaseItemStock(Inventory inventory)
         {
-            PrintHeader(increaseItemStockHeader);
+            SetOutput.PrintHeader(increaseItemStockHeader);
             while (true)
             {
                 int itemNumber = GetInput.AsInt(increaseItemStockPrompt);
@@ -168,14 +168,14 @@ namespace CIS207.Project6InventoryItem
                     }
                     else
                     {
-                        HandleError(ErrorItemNotFound);
+                        SetOutput.HandleError(ErrorItemNotFound);
                     }
                 }
             }
         }
         private static void DecreaseItemStock(Inventory inventory)
         {
-            PrintHeader(decreaseItemStockHeader);
+            SetOutput.PrintHeader(decreaseItemStockHeader);
             while (true)
             {
                 int itemNumber = GetInput.AsInt(decreaseItemStockPrompt);
@@ -193,7 +193,7 @@ namespace CIS207.Project6InventoryItem
                     }
                     else
                     {
-                        HandleError(ErrorItemNotFound);
+                        SetOutput.HandleError(ErrorItemNotFound);
                     }
                 }
             }
@@ -215,25 +215,25 @@ namespace CIS207.Project6InventoryItem
         }
 
 
-        private static void HandleError(string errorMessage)
-        { Console.WriteLine(errorMessage); }
-        private static void PrintMenu(string menu)
-        { Console.Write(menu); }
-        private static void PrintViewHeader()
-        {
-            Console.WriteLine($"== {_viewHeaderNumber} == {_viewHeaderName} == {_viewHeaderPrice} == {_viewHeaderStock} ==");
-            //format with tabs or something
-        }
-        private static void PrintViewItem(InventoryItem item)
-        { Console.WriteLine($"{item.Number}, {item.Name}, {item.Price}, {item.Stock}"); }
-        private static void PrintHeader(string header)
-        {
-            Console.WriteLine($"======================================");
-            Console.WriteLine($"============ {header} ============");
-            Console.WriteLine($"======================================");
-        }
-        private static void PrintFooter()
-        { Console.WriteLine($"============  ============"); }
+        //private static void HandleError(string errorMessage)
+        //{ Console.WriteLine(errorMessage); }
+        //private static void PrintMenu(string menu)
+        //{ Console.Write(menu); }
+        //private static void PrintViewHeader()
+        //{
+        //    Console.WriteLine($"== {_viewHeaderNumber} == {_viewHeaderName} == {_viewHeaderPrice} == {_viewHeaderStock} ==");
+        //    //format with tabs or something
+        //}
+        //private static void PrintViewItem(InventoryItem item)
+        //{ Console.WriteLine($"{item.Number}, {item.Name}, {item.Price}, {item.Stock}"); }
+        //private static void PrintHeader(string header)
+        //{
+        //    Console.WriteLine($"======================================");
+        //    Console.WriteLine($"============ {header} ============");
+        //    Console.WriteLine($"======================================");
+        //}
+        //private static void PrintFooter()
+        //{ Console.WriteLine($"============  ============"); }
 
         //static int GetInputAsInt(string prompt)
         //{

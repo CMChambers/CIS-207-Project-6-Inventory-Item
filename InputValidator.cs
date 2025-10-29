@@ -11,13 +11,13 @@ namespace CIS207.Project6InventoryItem
         public static ValidationResult<int> AsInt(string input)                // returns a validation result for an int
         {
             if (TryConvertToInt(input, out int convertedNumber))                      // try to convert the text to numbers
-            { ValidationResult<int>.Success(convertedNumber); }                             // returns a validation result containing error
+            { return ValidationResult<int>.Success(convertedNumber); }                             // returns a validation result containing error
             return ValidationResult<int>.Error("invalid integer");                         // return validated result containing int and no-error falg
         }
         public static ValidationResult<decimal> AsDecimal(string input)                // returns a validation result for an int
         {
             if (TryConvertToDecimal(input, out decimal convertedNumber))                      // try to convert the text to numbers
-            { ValidationResult<decimal>.Success(convertedNumber); }                             // returns a validation result containing error
+            { return ValidationResult<decimal>.Success(convertedNumber); }                             // returns a validation result containing error
             return ValidationResult<decimal>.Error("invalid decimal");                         // return validated result containing int and no-error falg
         }
 
@@ -25,11 +25,31 @@ namespace CIS207.Project6InventoryItem
         {
             string convertedText = input.Trim();
 
-            if (string.IsNullOrEmpty(convertedText))                      // try to convert the text to numbers
-            { ValidationResult<string>.Success(convertedText); }                             // returns a validation result containing error
+            if (!string.IsNullOrEmpty(convertedText))                      // try to convert the text to numbers
+            { return ValidationResult<string>.Success(convertedText); }                             // returns a validation result containing error
             return ValidationResult<string>.Error("invalid string");                         // return validated result containing int and no-error falg
         }
 
+
+        private static bool TryConvertToInt(string _inputNumber, out int _convertedNumber)                // tries to parse int, returns true for success, false for fail
+        {
+            return int.TryParse(
+                            _inputNumber,
+                            NumberStyles.Integer,                                                       // allows leading & trailing white space & negative
+                            CultureInfo.InvariantCulture,                                               // use "." as decimal separator
+                            out _convertedNumber
+                        );
+        }
+
+        private static bool TryConvertToDecimal(string _inputNumber, out decimal _convertedNumber)                // tries to parse int, returns true for success, false for fail
+        {
+            return decimal.TryParse(
+                            _inputNumber,
+                            NumberStyles.Number,                                                       // allows leading & trailing white space & negative
+                            CultureInfo.InvariantCulture,                                               // use "." as decimal separator
+                            out _convertedNumber
+                        );
+        }
 
         //public static ValidationResultInt AsInt(string input)                // returns a validation result for an int
         //{
@@ -56,26 +76,6 @@ namespace CIS207.Project6InventoryItem
         //    return new ValidationResultString(convertedText);                        // return validation result containing string and no-error flag
         //}
 
-
-        private static bool TryConvertToInt(string _inputNumber, out int _convertedNumber)                // tries to parse int, returns true for success, false for fail
-        {
-            return int.TryParse(
-                            _inputNumber,
-                            NumberStyles.Integer,                                                       // allows leading & trailing white space & negative
-                            CultureInfo.InvariantCulture,                                               // use "." as decimal separator
-                            out _convertedNumber
-                        );
-        }
-
-        private static bool TryConvertToDecimal(string _inputNumber, out decimal _convertedNumber)                // tries to parse int, returns true for success, false for fail
-        {
-            return decimal.TryParse(
-                            _inputNumber,
-                            NumberStyles.Number,                                                       // allows leading & trailing white space & negative
-                            CultureInfo.InvariantCulture,                                               // use "." as decimal separator
-                            out _convertedNumber
-                        );
-        }
 
     }
 }

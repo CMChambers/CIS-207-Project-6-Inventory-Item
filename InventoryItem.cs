@@ -1,7 +1,7 @@
 ﻿
 namespace CIS207.Project6InventoryItem
 {
-    internal class InventoryItem
+    public class InventoryItem
     {
         private int _number;
         private string _name;
